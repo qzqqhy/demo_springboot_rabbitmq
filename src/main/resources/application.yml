@@ -1,0 +1,48 @@
+#########################--mysql--########################
+spring:
+    datasource:
+        name: test
+        url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: root
+        #Spring Boot默认的数据源是：org.apache.tomcat.jdbc.pool.DataSource
+        type: com.alibaba.druid.pool.DruidDataSource
+        sql-script-encoding: utf-8
+        driver-class-name: com.mysql.jdbc.Driver
+        maxActive: 50
+        initialSize: 5
+        #配置获取连接等待超时的时间
+        maxWait: 60000
+        minIdle: 5
+        timeBetweenEvictionRunsMillis: 60000
+        #配置一个连接在池中最小生存的时间，单位是毫秒
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        #打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+
+    rabbitmq:
+      host: 127.0.0.1
+      port: 5672
+      password: guest
+      username: guest
+      virtual-host: /
+      listener:
+        auto-startup: true
+server:
+  port: 8088
+  display-name: "liubo-loan"
+  tomcat:
+    accesslog:
+      directory: /opt/logs/
+      prefix: acesslog
+      suffix: .log
+        # 使用druid数据源
+#########################--mysql end--########################
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.liubo.demo
