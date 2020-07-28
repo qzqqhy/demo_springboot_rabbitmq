@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liubo.demo.rabbitmq.direct.Sender;
 import com.liubo.demo.rabbitmq.messagemodel.base.BaseMessageSend;
+import com.liubo.demo.rabbitmq.messagemodel.work.WorkMessageSend;
 import com.liubo.demo.rabbitmq.person.model.PersonDO;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
@@ -68,5 +69,14 @@ public class TestController {
         return "sending...";
     }
 
+    @Autowired
+    WorkMessageSend workMessageSend;
 
+    @RequestMapping("/workMessageSend")
+    @ResponseBody
+    public String baseMessageSd() throws Exception{
+        System.out.println("send string work message :hello world");
+        workMessageSend.send();
+        return "sending...";
+    }
 }

@@ -49,6 +49,7 @@ public class AmqpConfig {
         connectionFactory.setPassword(password);
         connectionFactory.setVirtualHost(virtualHost);
         connectionFactory.setPublisherConfirms(true);// 确认机制
+
         //发布确认，template要求CachingConnectionFactory的publisherConfirms属性设置为true
         return connectionFactory;
     }
