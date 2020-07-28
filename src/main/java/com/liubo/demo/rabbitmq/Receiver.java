@@ -36,7 +36,7 @@ public class Receiver implements ChannelAwareMessageListener {
     private PersonDao personDao;
 
     @Autowired
-    private RabbitTemplate template;
+    private RabbitTemplate rt;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -79,7 +79,7 @@ public class Receiver implements ChannelAwareMessageListener {
 
             PersonDO personDO = new PersonDO(id,userId,userName,age);
             //发送到失败队列
-            template.convertAndSend(AmqpConfig.EXCHANGE, AmqpConfig.ROUTINGKEY_FAIL, personDO);
+            rt.convertAndSend(AmqpConfig.EXCHANGE, AmqpConfig.ROUTINGKEY_FAIL, personDO);
         }
     }
 

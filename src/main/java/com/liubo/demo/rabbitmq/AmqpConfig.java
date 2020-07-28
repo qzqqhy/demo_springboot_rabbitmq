@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
@@ -53,8 +54,9 @@ public class AmqpConfig {
     }
 
     // RabbitMQ的使用入口
-    @Bean
+    @Bean(name="rt")
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    @Description("RabbitMQ的使用入口")
     //必须是prototype类型
     public RabbitTemplate rabbitTemplate() {
         RabbitTemplate template = new RabbitTemplate(this.connectionFactory());

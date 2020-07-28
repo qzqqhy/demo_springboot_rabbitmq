@@ -3,6 +3,8 @@ package com.liubo.demo.rabbitmq;
 import com.alibaba.druid.support.json.JSONUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liubo.demo.rabbitmq.direct.Sender;
+import com.liubo.demo.rabbitmq.messagemodel.base.BaseMessageSend;
 import com.liubo.demo.rabbitmq.person.model.PersonDO;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
@@ -11,10 +13,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by hzlbo on 2016/7/2.
@@ -23,7 +28,8 @@ import java.util.Map;
 public class TestController {
 
     @Autowired
-    RabbitTemplate rabbitTemplate;
+    RabbitTemplate rt;
+
     @Autowired
     ObjectMapper objectMapper;
 
@@ -36,7 +42,31 @@ public class TestController {
         map.put("age",20);
 //        Message message= MessageBuilder.withBody(objectMapper.writeValueAsBytes(map)).setDeliveryMode(MessageDeliveryMode.PERSISTENT).build();
         Message message = MessageBuilder.withBody(objectMapper.writeValueAsBytes(map)).setMessageId("123").build();
-        rabbitTemplate.convertAndSend(AmqpConfig.EXCHANGE, AmqpConfig.ROUTINGKEY, message);
+        rt.convertAndSend(AmqpConfig.EXCHANGE, AmqpConfig.ROUTINGKEY, message);
         return "ok";
     }
+
+    @Autowired
+    Sender sender;
+
+    @RequestMapping("/sender")
+    @ResponseBody
+    public String sender(){
+        System.out.println("send string:hello world");
+        sender.send("hello world");
+        return "sending...";
+    }
+
+    @Autowired
+    BaseMessageSend baseMessageSend;
+
+    @RequestMapping("/baseMessageSend")
+    @ResponseBody
+    public String basemsgsender() throws IOException, TimeoutException {
+        System.out.println("send string:hello world");
+        baseMessageSend.send("hello world");
+        return "sending...";
+    }
+
+
 }
