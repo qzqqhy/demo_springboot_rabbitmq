@@ -1,6 +1,9 @@
 package com.liubo.demo.rabbitmq.messagemodel.base;
 
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.MessageProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.connection.Connection;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,21 @@ public class BaseMessageSend {
 //        // 消息内容
 //        String message = "Hello World!";
         // 向指定的队列中发送消息
-        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+        if(StringUtils.isEmpty(message)){
+            System.out.println("message is null");
+            return ;
+        }
+        byte[] bytes = message.getBytes();
+
+        String s = new String(bytes);
+        if(StringUtils.isEmpty(s)){
+            System.out.println("message is null");
+            return ;
+        }
+        //MessageProperties
+        AMQP.BasicProperties props = MessageProperties.TEXT_PLAIN;
+
+        channel.basicPublish("", QUEUE_NAME, props, bytes);
 
         System.out.println(" [x] Sent '" + message + "'");
 
