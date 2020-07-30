@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class WorkQueueConfig {
     public final static String QUEUE_NAME = "test_work_queue";
-    @Bean
+    @Bean(name = "workqueueQueue")
     public Queue workqueueQueue() {
         return new Queue(QUEUE_NAME, false);//队列名字，是否持久化
     }

@@ -17,9 +17,9 @@ public class ManSender {
     protected String queueName;
 
     // 消息队列名称
-    private final static String userName = "guest";
-    private final static String password = "guest";
-    private final static String virtualHost = "/";
+    private final static String userName = "admin";
+    private final static String password = "admin";
+    private final static String virtualHost = "/my_vhost";
     private final static int port = 5672;
     private final static String host = "127.0.0.1";
 

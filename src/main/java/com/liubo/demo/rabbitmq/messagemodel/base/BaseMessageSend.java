@@ -18,7 +18,7 @@ public class BaseMessageSend {
     @Autowired
     ConnectionFactory connectionFactory;
 
-    private final static String QUEUE_NAME = "base_message";
+    private final static String QUEUE_NAME = "base_message1";
 
     public void send(String message) throws IOException, TimeoutException {
         // 从连接中创建通道，使用通道才能完成消息相关的操作

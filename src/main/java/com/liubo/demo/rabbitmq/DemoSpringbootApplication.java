@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.liubo.demo.rabbitmq.person.dao")
+@MapperScan("com.liubo.demo.rabbitmq.*.**")
 public class DemoSpringbootApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoSpringbootApplication.class, args);
