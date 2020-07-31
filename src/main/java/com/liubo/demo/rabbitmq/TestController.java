@@ -65,7 +65,7 @@ public class TestController {
     @ResponseBody
     public String basemsgsender() throws IOException, TimeoutException {
         System.out.println("send string:hello world");
-        baseMessageSend.send("hello world");
+        baseMessageSend.send("hello worldhello worldhello worldhello worldhello worldhello world");
         return "sending...";
     }
 
